@@ -88,7 +88,7 @@ public class PlayerEntity : LivingEntity {
 		animeState.isGrounded = isOnGround;
 		if(facingDirection.x<0)
 			animeState.Facing = -1;
-		else if(facingDirection.x<0)
+		else if(facingDirection.x>0)
 			animeState.Facing = 1;
 			
 		
