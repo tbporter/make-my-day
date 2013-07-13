@@ -17,12 +17,13 @@ public class Weapon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+;
 		if(Input.GetButton("Fire1")){
 			isShooting = true;
 		}else{
 			isShooting = false;
 		}
-		//transform.LookAt(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+		transform.parent.GetComponent<AnimeState>().isShooting = isShooting;
 	}
 	
 	void FixedUpdate () {
