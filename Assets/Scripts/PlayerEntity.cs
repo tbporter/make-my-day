@@ -19,13 +19,9 @@ public class PlayerEntity : LivingEntity {
 	private bool extendedJump;
 	
 	private float vertSpeed = 0;
-	
-	private float lastOnGround = 0;
-	private bool isOnGround;
-	private float lastOnBuffer = .05f;
+
 	
 	void OnStart() {
-		isOnGround = false;
 		GetComponent<AnimeState>().Facing = 1;
 	}
     void Update() {
@@ -82,6 +78,7 @@ public class PlayerEntity : LivingEntity {
 		}
 		
 		
+		moveDirection.z = stayOnZ();
 		controller.Move(moveDirection * Time.deltaTime);
 		
 		updatePlatformLogic();
@@ -106,20 +103,7 @@ public class PlayerEntity : LivingEntity {
 		}
 	}
 	
-	bool updateGrouded(){
-		CharacterController controller = GetComponent<CharacterController>();
-		if(controller.isGrounded == true){
-			lastOnGround = 0;
-			return true;
-		}
-		
-		lastOnGround += Time.deltaTime;
-		
-		if(lastOnGround>lastOnBuffer)
-			return false;
-		
-		return isOnGround;
-	}
+
 	
 	
 	

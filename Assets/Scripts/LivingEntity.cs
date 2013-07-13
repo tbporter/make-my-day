@@ -18,4 +18,32 @@ public class LivingEntity : MonoBehaviour {
 	void Update () {
 	
 	}
+	
+	
+	protected float lastOnGround = 0;
+	protected bool isOnGround = false;
+	protected float lastOnBuffer = .05f;
+	
+	protected bool updateGrouded(){
+		CharacterController controller = GetComponent<CharacterController>();
+		if(controller.isGrounded == true){
+			lastOnGround = 0;
+			return true;
+		}
+		
+		lastOnGround += Time.deltaTime;
+		
+		if(lastOnGround>lastOnBuffer)
+			return false;
+		
+		return isOnGround;
+	}
+	protected float stayOnZ(){
+		if(transform.position.z>0)
+			return -.1f;
+		else if(transform.position.z<0)
+			return .1f;
+		
+		return 0f;
+	}
 }

@@ -22,7 +22,7 @@ public class Weapon : MonoBehaviour {
 		}else{
 			isShooting = false;
 		}
-		transform.LookAt(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+		//transform.LookAt(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 	}
 	
 	void FixedUpdate () {
