@@ -2,14 +2,19 @@ using UnityEngine;
 using System.Collections;
 
 
-enum AnimationMovementStates {
-	Idle,
-	Walking,
-	Running,
-	Jumping
+//most sugoi struct
+public struct AnimeState{
+	public bool isRunning;
+	public bool facingForward;
+	public bool isJumping;
+	public bool isShooting;
 };
 
+
 public class Movement : MonoBehaviour {
+	
+	public AnimeState moveAnimeState = new AnimeState();
+	
     private float walkVel = 6.0f;
 	private float runVel = 15f;
 	private float runAccel = 15f;
@@ -31,6 +36,7 @@ public class Movement : MonoBehaviour {
 	
 	void OnStart() {
 		isOnGround = false;
+		moveAnimeState.facingForward = true;
 	}
     private Vector3 moveDirection = Vector3.zero;
     void Update() {
@@ -44,58 +50,75 @@ public class Movement : MonoBehaviour {
 			
 			//running
 			if(Input.GetButton("Sprint")){
-				print (curHoriVel);
+				moveAnimeState.isRunning = true;
 				curHoriVel += runAccel * Time.deltaTime;
 				if(curHoriVel>runVel) curHoriVel=runVel;
 			}
 			else{
+				moveAnimeState.isRunning = false;
 				curHoriVel -= runAccel * Time.deltaTime;
 				if(curHoriVel<walkVel) curHoriVel=walkVel;
 			}
-			
-        	moveDirection.x = Input.GetAxis("Horizontal")*curHoriVel;
-			moveDirection.y = -3f; //magic number to balance high speed ledge falls and not bouncing on floor
+			curHoriDir = Input.GetAxis("Horizontal");
+        	moveDirection.x = curHoriDir*curHoriVel;
 			
 			
             if (Input.GetButton("Jump")){
                 moveDirection.y = jumpVel;
 				extendedJump = true;
 				
-				//get the direction we jumped in
-				curHoriDir = Input.GetAxis("Horizontal");
+			}
+			else{
+				moveDirection.y = -3f; //magic number to balance high speed ledge falls and not bouncing on floor
 			}
 			
         }
 		else {
-			//moveDirection.x = jumpHoriVel*Input.GetAxis("Horizontal");
-			
 			//make sure we are giong the same direction
-			if((curHoriDir>=0&&Input.GetAxis("Horizontal")>=0)||(
-				(curHoriDir)<=0&&Input.GetAxis("Horizontal")<=0)){
+			if((curHoriDir>0&&Input.GetAxis("Horizontal")>0)||(
+				(curHoriDir)<0&&Input.GetAxis("Horizontal")<0)){
 				//don't do anything going the same direction
 			}
 			else{ //you changed direction mid air, revert to jumping speed
 				curHoriVel = jumpHoriVel;
 			}
-			moveDirection.x = curHoriVel * Input.GetAxis("Horizontal");
 			
+			moveDirection.x = curHoriVel * Input.GetAxis("Horizontal");
 			moveDirection.y -= gravity * Time.deltaTime;
+			
+			//So if we never let go of jump, and we are still going up, we can control how much higher we go
         	if (moveDirection.y>0 && extendedJump && Input.GetButton("Jump"))
                 moveDirection.y += jumpFloat * Time.deltaTime;
-			else
+			else //ok, jump over
 				extendedJump = false;
 		}
+		
+		
 		controller.Move(moveDirection * Time.deltaTime);
+		
+		updatePlatformLogic();
+		
+		
+		//Animation stuff
+		moveAnimeState.isJumping = !isOnGround;
+		if(curHoriDir==0){
+			//do nothing
+		}
+		else{
+			moveAnimeState.facingForward = curHoriDir>0;
+		}
+			
+		
+    }
+	
+	void updatePlatformLogic(){
 		if(Input.GetAxis ("Vertical") == -1){
 			gameObject.layer = 9;
 		}
 		else{
 			gameObject.layer = 0;
 		}
-		
-		
-		
-    }
+	}
 	
 	bool updateGrouded(){
 		CharacterController controller = GetComponent<CharacterController>();
