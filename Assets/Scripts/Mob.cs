@@ -7,10 +7,17 @@ public class Mob : LivingEntity {
 	public float moveVel;
 	
 	protected void updateMove() {
+		
 		CharacterController controller = GetComponent<CharacterController>();
+		isOnGround = updateGrouded();
 		moveDirection.x = moveVel * facingDirection.x;
-		print (facingDirection.x);
-		moveDirection.y -= gravity * Time.deltaTime;
+		if(isOnGround){
+			moveDirection.y = -3f;
+		}
+		else{
+			moveDirection.y -= gravity * Time.deltaTime;
+		}
+		moveDirection.z = stayOnZ();
 		controller.Move(moveDirection * Time.deltaTime);
 	}
 	
@@ -21,7 +28,7 @@ public class Mob : LivingEntity {
 		if(hits.Length>0){
 			foreach(RaycastHit hit in hits){
 				//we want to aim for the Player
-				if(hit.transform.tag == "Player"){
+				if(hit.transform.tag == "Player" || hit.transform.tag == "Projectile"){
 					facingDirection = Vector3.right;
 					return;
 				}
@@ -35,7 +42,7 @@ public class Mob : LivingEntity {
 		if(hits.Length>0){
 			foreach(RaycastHit hit in hits){
 				//we want to aim for the Player
-				if(hit.transform.tag == "Player"){
+				if(hit.transform.tag == "Player" || hit.transform.tag == "Projectile"){
 					facingDirection = -1*Vector3.right;
 					return;
 				}
