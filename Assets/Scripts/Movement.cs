@@ -18,5 +18,14 @@ public class Movement : MonoBehaviour {
         }
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
+		
+		
+		if(Input.GetAxis ("Vertical") == -1){
+			gameObject.layer = 9;
+		}
+		else{
+			gameObject.layer = 0;
+		}
+		
     }
 }
