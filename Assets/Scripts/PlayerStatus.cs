@@ -42,7 +42,7 @@ public class PlayerStatus : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider collision ) {
 		transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-		if(collision.transform.tag == "Mob"){
+		if(collision.transform.tag == "Mob" || collision.transform.tag == "Projectile"){
 			changeOpacity(.5f);
 			invLayerOn = true;
 			invTimer = invTime;
