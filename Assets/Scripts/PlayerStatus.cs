@@ -15,11 +15,12 @@ public class PlayerStatus : MonoBehaviour {
 		blood = gameObject.transform.FindChild("Blood").GetComponent<ParticleSystem>();
 		bleed (false);
 		invLayerOn = false;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		GetComponent<InjuredScript>().Damage = invLayerOn;
 		if(invTimer<=0){
 			gameObject.layer = 0;
 			invLayerOn = false;
@@ -63,7 +64,7 @@ public class PlayerStatus : MonoBehaviour {
 		}
 	}
 	void die(){
-		print ("lolyouded");
+		Application.LoadLevel (Application.loadedLevelName);
 	}
 	
 	void changeOpacity(float val){
