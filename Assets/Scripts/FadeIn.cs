@@ -16,5 +16,6 @@ public class FadeIn : MonoBehaviour {
 			cAlpha.a -= .005f;
 			renderer.material.color = cAlpha;
 		}
+		if (cAlpha.a <= 0) Destroy (gameObject);
 	}
 }
