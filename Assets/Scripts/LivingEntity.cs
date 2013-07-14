@@ -3,7 +3,7 @@ using System.Collections;
 
 public class LivingEntity : MonoBehaviour {
 	
-	protected Vector3 facingDirection;
+	public Vector3 facingDirection;
 	public Vector3 startingDirection;
 	protected Vector3 moveDirection = Vector3.zero;
 	
