@@ -18,7 +18,7 @@ public class PlayerEntity : LivingEntity {
 	
 	private bool extendedJump;
 	
-	private float vertSpeed = 0;
+	public bool ignoreLayerOn;
 
 	
 	void OnStart() {
@@ -96,10 +96,12 @@ public class PlayerEntity : LivingEntity {
 	
 	void updatePlatformLogic(){
 		if(Input.GetAxis ("Vertical") == -1){
-			gameObject.layer = 9;
+			//gameObject.layer = 9;
+			ignoreLayerOn = true;
 		}
 		else{
-			gameObject.layer = 0;
+			ignoreLayerOn = false;
+			//gameObject.layer = 0;
 		}
 	}
 	
