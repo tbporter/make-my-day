@@ -118,7 +118,6 @@ public class Medusa : MonoBehaviour {
 			if(heads[i])
 				heads[i].attackPlayer();
 		}
-		print ("hairattack4");
 		endAction();
 	}
 	
