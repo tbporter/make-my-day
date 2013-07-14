@@ -11,7 +11,7 @@ public class MobStatus : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		print ("derp");
+//		print ("derp");
 	}
 	
 	public void OnCollisionEnter(Collision collision ) {
