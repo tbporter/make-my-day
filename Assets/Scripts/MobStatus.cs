@@ -14,7 +14,7 @@ public class MobStatus : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-//		print ("derp");
+		print ("derp");
 		
 			indicatorTimer -= Time.deltaTime;
 		if(indicatorTimer<=0){
@@ -39,8 +39,11 @@ public class MobStatus : MonoBehaviour {
 		}
 		
 	}
-	void die(Vector3 hitLoc){
-		
+	
+	public void die(){
+		die (transform.position);
+	}
+	public void die(Vector3 hitLoc){
 		int[,] positions = new int[,] { { -1,-1},{-1,0},{-1,1},{0,-1},{0,0},{0,1},{1,-1},{1,0},{1,1}};
 		
 		
