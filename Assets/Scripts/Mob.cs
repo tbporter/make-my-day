@@ -7,7 +7,7 @@ public class Mob : LivingEntity {
 	public float moveVel;
 	
 	protected void updateMove() {
-		
+		AnimeState animeState = GetComponent<AnimeState>();
 		CharacterController controller = GetComponent<CharacterController>();
 		isOnGround = updateGrouded();
 		moveDirection.x = moveVel * facingDirection.x;
@@ -19,6 +19,12 @@ public class Mob : LivingEntity {
 		}
 		moveDirection.z = stayOnZ();
 		controller.Move(moveDirection * Time.deltaTime);
+		
+		if(facingDirection.x<0)
+			animeState.Facing = -1;
+		else if(facingDirection.x>0)
+			animeState.Facing = 1;
+		
 	}
 	
 	protected void avoidSides(){
