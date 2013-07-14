@@ -19,5 +19,7 @@ public class DialogScript : MonoBehaviour {
 		renderer.material.color = new Color (1,1,1,1);
 		yield return new WaitForSeconds(5.0f);
 	    if (msg !=3) renderer.material.color = new Color (1,1,1,0); // hold the last frame.
+		
+		yield return null;
 	}
 }
