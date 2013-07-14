@@ -2,8 +2,10 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+[RequireComponent(typeof(AudioSource))]
 
 public class Medusa : MonoBehaviour {
+	public AudioClip belch;
 
 	//public enum attacks {snake,hair,ground, sweep};
 	
@@ -99,6 +101,8 @@ public class Medusa : MonoBehaviour {
 	}
 	
 	IEnumerator spawnSnake(){
+		audio.PlayOneShot(belch, 3f);
+		
 		Instantiate(snake,transform.position,snake.transform.rotation);
 		yield return new WaitForSeconds(.5f);
 		yield return new WaitForSeconds(.5f);

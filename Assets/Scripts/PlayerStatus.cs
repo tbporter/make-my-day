@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections;
+[RequireComponent(typeof(AudioSource))]
 
 public class PlayerStatus : MonoBehaviour {
 	public int maxHP = 2;
 	public int hp;
+	public AudioClip ouch;
+	
 	bool invLayerOn;
 	ParticleSystem blood;
 	float invTimer;
@@ -46,6 +49,9 @@ public class PlayerStatus : MonoBehaviour {
 		if(collision.transform.tag == "Mob" || collision.transform.tag == "Projectile"){
 			changeOpacity(.5f);
 			invLayerOn = true;
+			Debug.Log ("ouch");
+			audio.PlayOneShot(ouch, 1F);
+			
 			invTimer = invTime;
 			hp-=1; //variable damage here
 			

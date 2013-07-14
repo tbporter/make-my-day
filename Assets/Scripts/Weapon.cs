@@ -1,9 +1,13 @@
 using UnityEngine;
 using System.Collections;
+[RequireComponent(typeof(AudioSource))]
 
 public class Weapon : MonoBehaviour {
 	
+	
+	
 	public GameObject bullet;
+	public AudioClip bang;
 	
 	private bool isShooting = false;
 	private float lastFired = 0;
@@ -29,12 +33,15 @@ public class Weapon : MonoBehaviour {
 	
 	void FixedUpdate () {
 		if(isShooting && lastFired>fireRate){
+			
+			audio.PlayOneShot(bang, 3f);
+			
 			lastFired = 0;
 			float face = gameObject.transform.parent.GetComponent<AnimeState>().Facing;
 			//GameObject firedBullet = (GameObject) Instantiate(bullet,transform.position,bullet.transform.rotation);
 			GameObject firedBullet = (GameObject) Instantiate(bullet,transform.position,bullet.transform.rotation);
 			Collider[] colliders = transform.parent.GetComponents<Collider>();
-			foreach(Collider col in colliders){
+			foreach (Collider col in colliders){
 				Physics.IgnoreCollision(col,firedBullet.collider);
 			}
 			firedBullet.rigidbody.AddForce (new Vector3(bulletForce*face,0,0));
