@@ -13,7 +13,7 @@ public class PlayerStatus : MonoBehaviour {
 	void Start () {
 		hp = maxHP;
 		blood = gameObject.transform.FindChild("Blood").GetComponent<ParticleSystem>();
-		blood.Stop();
+		bleed (false);
 		invLayerOn = false;
 	}
 	
@@ -23,6 +23,7 @@ public class PlayerStatus : MonoBehaviour {
 		if(invTimer<=0){
 			gameObject.layer = 0;
 			invLayerOn = false;
+			changeOpacity(1f);
 		}else{
 			invTimer -= Time.deltaTime;
 		}
@@ -40,23 +41,48 @@ public class PlayerStatus : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider collision ) {
+		transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 		if(collision.transform.tag == "Mob"){
-			print ("derp");
+			changeOpacity(.5f);
 			invLayerOn = true;
 			invTimer = invTime;
 			hp-=1; //variable damage here
 			
 			
 			if(hp<=maxHP/2)
-				blood.Play ();
+				bleed (true);
 			
 			if(hp<=0)
 				die();
 		}
-		
+		else if(collision.transform.tag == "Projectile"){
+		}
+		else if(collision.transform.tag == "PowerUp"){
+			collision.gameObject.GetComponent<Powerup>().getPwer (this.gameObject);
+			Destroy (collision.gameObject);
+		}
 	}
 	void die(){
 		print ("lolyouded");
 	}
 	
+	void changeOpacity(float val){
+		/*Renderer[] rends = gameObject.GetComponentsInChildren<Renderer>();
+		
+		foreach(Renderer rend in rends){
+			Color color = rend.material.color;
+			color.b = val;
+			renderer.material.SetColor("_Color",color);
+		}*/
+	}
+	
+	public void bleed(bool b){
+		
+		if(b){
+			blood.Play();
+		}
+		else{
+			blood.Stop();
+		}
+	}
 }

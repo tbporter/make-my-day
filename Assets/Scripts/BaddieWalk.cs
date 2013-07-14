@@ -15,8 +15,6 @@ public class BaddieWalk : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		vOffset.y = fSetRow;
-		Debug.Log (fSetRow);
-		Debug.Log (vOffset.y);
 	}
 	
     
@@ -25,7 +23,6 @@ public class BaddieWalk : MonoBehaviour {
 		float newFrame = Mathf.Floor ( Time.time / frameRate ) ;
 		if (frame != newFrame) {
 			vOffset.y = fSetRow;
-			Debug.Log (vOffset.y);
 			
 			vOffset.x += .5f;
 			vOffset.x %= 1;
