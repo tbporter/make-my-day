@@ -15,6 +15,8 @@ public class BaddieWalk : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		vOffset.y = fSetRow;
+		Debug.Log (fSetRow);
+		Debug.Log (vOffset.y);
 	}
 	
     
@@ -23,16 +25,19 @@ public class BaddieWalk : MonoBehaviour {
 		float newFrame = Mathf.Floor ( Time.time / frameRate ) ;
 		if (frame != newFrame) {
 			vOffset.y = fSetRow;
+			Debug.Log (vOffset.y);
+			
 			vOffset.x += .5f;
 			vOffset.x %= 1;
+			
 		
 			if (myAnimation.Facing > 0) { // facing left
-				renderer.material.mainTextureScale = new Vector2 (-.5f, fSetRow);
-				renderer.material.SetTextureOffset("_MainTex", new Vector2( vOffset.x +.5f, vOffset.y));
+				renderer.material.mainTextureScale = new Vector2 (-.5f, .5f);
+				renderer.material.SetTextureOffset("_MainTex", new Vector2( vOffset.x +.5f, fSetRow));
 			}
 			else {
-				renderer.material.mainTextureScale = new Vector2 (.5f, fSetRow);
-				renderer.material.SetTextureOffset("_MainTex", vOffset);
+				renderer.material.mainTextureScale = new Vector2 (.5f, .5f);
+				renderer.material.SetTextureOffset("_MainTex", new Vector2 (vOffset.x, fSetRow));
 			}
 				
 		}	
