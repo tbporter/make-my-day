@@ -25,12 +25,15 @@ public class TorsoAnimation : MonoBehaviour {
 		if (frame != newFrame) {
 
 			if (myAnimation.isShooting) {
+				if (myAnimation.Facing < 0) vOffset.x = .5f;
+				else vOffset.x = 0f;
+		
 				myPos = transform.localPosition;
 				myPos.y = .1f;
 				transform.localPosition = myPos;
 				vOffset.y += ( 1f / iMaxRows );
 				vOffset.y %= 1; 
-				renderer.material.mainTextureScale = new Vector2 ( ( myAnimation.Facing * (1f/iMaxCols)), ( 1f / iMaxRows ));
+				renderer.material.mainTextureScale = new Vector2 ( ( myAnimation.Facing * .5f), ( 1f / iMaxRows ));
 				renderer.material.SetTextureOffset("_MainTex", vOffset);
 				
 			}	
@@ -39,12 +42,14 @@ public class TorsoAnimation : MonoBehaviour {
 				myPos.y = -.1f;
 				transform.localPosition = myPos;
 				
-				if (myAnimation.Facing >0) {
+				if (myAnimation.Facing > 0) {
 					renderer.material.SetTextureOffset("_MainTex", new Vector2(.5f, .5f));
 				}
-				else renderer.material.SetTextureOffset("_MainTex", new Vector2(-.5f, .1f));
+				else {
+					renderer.material.SetTextureOffset("_MainTex", new Vector2(1f, .5f));
+				}
 				
-				renderer.material.mainTextureScale = new Vector2 (.5f, .5f);
+				renderer.material.mainTextureScale = new Vector2 (myAnimation.Facing * .5f, .5f);
 				
 			}
 		}	
