@@ -7,7 +7,7 @@ public class EndGame : MonoBehaviour {
 	public GameObject HelpBubble;
 	public DialogScript SDialog;
 	public FadeOut BlackOut;
-	public FadeIn theEnd;
+	public FadeOut theEnd;
 	bool bBubbleToggle = false;
 	float countDown=3;
 	bool hasWon = false;
@@ -53,13 +53,16 @@ public class EndGame : MonoBehaviour {
 	IEnumerator EndSequence() {
 		hasWon = true;
 		Destroy (HelpBubble);
+		
 		//show heart
 		Color cHeart = Heart.renderer.material.color;
 		cHeart.a = 1;
 		Heart.renderer.material.color = cHeart;
+		
 		//show fiance
 		renderer.material.SetTextureOffset("_MainTex", new Vector2(.5f, 0f));
 		yield return new WaitForSeconds(2.0f);
+		
 		//break his heart
 		SDialog.initDialog(1);
 		yield return new WaitForSeconds(5.0f);
