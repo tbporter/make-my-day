@@ -3,15 +3,16 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 	
-	
-	private float pickUpTimer;
-	private float pickUpTime;
+	public float startForce = 100; 
 	// Use this for initialization
 	void Start () {
-		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+	}
+	void OnCollisionEnter(Collision collision){
+		
+		Destroy (gameObject);
 	}
 }
