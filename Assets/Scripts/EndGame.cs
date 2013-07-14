@@ -32,11 +32,9 @@ public class EndGame : MonoBehaviour {
 				countDown = Time.time + 1f;
 			}
 		}
-		Debug.Log (countDown);
 	}
 	
 	void OnTriggerEnter(Collider player) {
-		Debug.Log (gameObject.tag);
 		if (player.CompareTag ("Player") && CanWin && !hasWon) StartCoroutine(EndSequence());
     }
 	
