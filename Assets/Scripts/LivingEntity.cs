@@ -40,9 +40,9 @@ public class LivingEntity : MonoBehaviour {
 	}
 	protected float stayOnZ(){
 		if(transform.position.z>0)
-			return -.1f;
+			return -.2f;
 		else if(transform.position.z<0)
-			return .1f;
+			return .2f;
 		
 		return 0f;
 	}

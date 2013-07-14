@@ -1,11 +1,14 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+
 public class Medusa : MonoBehaviour {
 
 	public enum attacks {snake,hair,ground, sweep};
 	
 	Waypoint[] waypoints;
+	List<HairSnake> hair;
 	int wpIndex;
 	Waypoint targetwp;
 	Vector3 startPos;
@@ -18,13 +21,14 @@ public class Medusa : MonoBehaviour {
 	string curAttack;
 	private GameObject snake;
 	
-	
+	Random rnd = new Random();
 	bool finishedAction = false;
 	bool actionInProgress = false;
 	// Use this for initialization
 	void Start () {
 		snake = (GameObject)Resources.Load ("dumbMob");
 		FindWayPoints();
+		
 		curAttack = "snake";
 		wpIndex = -1;
 		wpIndex = getNextWayPoint(wpIndex,curAttack);
@@ -83,6 +87,10 @@ public class Medusa : MonoBehaviour {
 				setNextAttack();
 				endAction();
 				break;
+			
+			case "attack":
+				StartCoroutine("hairAttack");
+				break;
 			default:
 				endAction();
 				break;
@@ -91,6 +99,18 @@ public class Medusa : MonoBehaviour {
 	
 	IEnumerator spawnSnake(){
 		Instantiate(snake,transform.position,snake.transform.rotation);
+		yield return new WaitForSeconds(.5f);
+		yield return new WaitForSeconds(.5f);
+		endAction();
+	}
+	
+	IEnumerator hairAttack(){
+		hair = new List<HairSnake>();
+		foreach(Transform child in transform){
+			hair.Add(child.GetComponent<HairSnake>());
+		}
+		hair[Random.Range(0,hair.Count)].attackPlayer();
+		
 		yield return new WaitForSeconds(.5f);
 		yield return new WaitForSeconds(.5f);
 		endAction();
