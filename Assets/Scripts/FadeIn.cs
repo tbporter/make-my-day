@@ -8,6 +8,7 @@ public class FadeIn : MonoBehaviour {
 	
 	void Start () {
 		cAlpha = renderer.material.color;
+		cAlpha.a = 1;
 	}
 	
 	void Update () {
