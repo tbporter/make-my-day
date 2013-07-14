@@ -23,6 +23,7 @@ public class PlayerStatus : MonoBehaviour {
 		if(invTimer<=0){
 			gameObject.layer = 0;
 			invLayerOn = false;
+			changeOpacity(1f);
 		}else{
 			invTimer -= Time.deltaTime;
 		}
@@ -40,8 +41,9 @@ public class PlayerStatus : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider collision ) {
+		transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 		if(collision.transform.tag == "Mob"){
-			print ("derp");
+			changeOpacity(.5f);
 			invLayerOn = true;
 			invTimer = invTime;
 			hp-=1; //variable damage here
@@ -53,10 +55,20 @@ public class PlayerStatus : MonoBehaviour {
 			if(hp<=0)
 				die();
 		}
-		
+		if(collision.transform.tag == "Projectile"){
+		}
 	}
 	void die(){
 		print ("lolyouded");
 	}
 	
+	void changeOpacity(float val){
+		Renderer[] rends = gameObject.GetComponentsInChildren<Renderer>();
+		
+		foreach(Renderer rend in rends){
+			Color color = rend.material.color;
+			color.b = val;
+			renderer.material.SetColor("_Color",color);
+		}
+	}
 }
