@@ -3,6 +3,7 @@ using System.Collections;
 
 public class MobStatus : MonoBehaviour {
 	public GameObject shard;
+	public int hp = 1;
 	// Use this for initialization
 	void Start () {
 	
@@ -17,7 +18,9 @@ public class MobStatus : MonoBehaviour {
 		
 		if(collision.transform.tag == "Projectile"){
 			Destroy(collision.gameObject);
-			die(collision.contacts[1].point);
+			hp-=1;
+			if(hp<=0)
+				die(collision.contacts[0].point);
 		}
 		
 	}
@@ -42,7 +45,5 @@ public class MobStatus : MonoBehaviour {
 			Destroy (plane,3);
 		}
 
-		
-		
 	}
 }
