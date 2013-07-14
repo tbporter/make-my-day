@@ -6,8 +6,10 @@ public class EndGame : MonoBehaviour {
 	public GameObject Heart;
 	public GameObject HelpBubble;
 	public DialogScript SDialog;
+	public FadeOut BlackOut;
+	public FadeIn theEnd;
 	bool bBubbleToggle = false;
-	float countDown=1;
+	float countDown=3;
 	bool hasWon = false;
 	
 	void Start() {
@@ -30,15 +32,15 @@ public class EndGame : MonoBehaviour {
 				}
 				
 				HelpBubble.renderer.material.color = cHelp;
-				countDown = Time.time + 1f;
+				countDown = Time.time + 7f;
 			}
 		}
 	}
 	
 	void OnTriggerEnter(Collider player) {
-<<<<<<< HEAD
+
 		if (player.CompareTag ("Player") && CanWin && !hasWon) StartCoroutine(EndSequence());
-=======
+
 		Debug.Log (gameObject.tag);
 		if (player.CompareTag ("Player") && CanWin && !hasWon) {
 			StartCoroutine(EndSequence());
@@ -46,8 +48,7 @@ public class EndGame : MonoBehaviour {
 			herPos.z = -2f;
 			player.transform.position = herPos;
 		}
->>>>>>> edd5e1bea565179a4614fba19513df1f365acea0
-    }
+	}
 	
 	IEnumerator EndSequence() {
 		hasWon = true;
@@ -68,7 +69,13 @@ public class EndGame : MonoBehaviour {
 		yield return new WaitForSeconds(5.0f);
 		Heart.renderer.material.SetTextureOffset("_MainTex", new Vector2(.5f, 0f));
 		yield return new WaitForSeconds(1.0f);
+		
+		// the End.
+		BlackOut.BFade = true;
+		yield return new WaitForSeconds(2.0f);
 		Destroy (Heart);
+		theEnd.BFade = true;
+		
 		yield return null;
 	}
 	
