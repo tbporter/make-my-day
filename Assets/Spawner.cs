@@ -1,17 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour {
-	
-	public float startForce = 100; 
+public class Spawner : MonoBehaviour {
+	public GameObject prefab;
 	// Use this for initialization
 	void Start () {
-	}	
+		Instantiate(prefab,transform.position,transform.rotation);
+	}
+	
 	// Update is called once per frame
 	void Update () {
-	}
-	void OnCollisionEnter(Collision collision){
-		
-		Destroy (gameObject);
+	
 	}
 }
