@@ -39,6 +39,7 @@ public class MobStatus : MonoBehaviour {
 			plane.transform.localScale = new Vector3(width,0,height);
 			
 			plane.rigidbody.AddExplosionForce(700f,hitLoc,10f,0f);
+			Destroy (plane,3);
 		}
 
 		

@@ -13,7 +13,7 @@ public class PlayerStatus : MonoBehaviour {
 	void Start () {
 		hp = maxHP;
 		blood = gameObject.transform.FindChild("Blood").GetComponent<ParticleSystem>();
-		blood.Stop();
+		bleed (false);
 		invLayerOn = false;
 	}
 	
@@ -50,12 +50,16 @@ public class PlayerStatus : MonoBehaviour {
 			
 			
 			if(hp<=maxHP/2)
-				blood.Play ();
+				bleed (true);
 			
 			if(hp<=0)
 				die();
 		}
-		if(collision.transform.tag == "Projectile"){
+		else if(collision.transform.tag == "Projectile"){
+		}
+		else if(collision.transform.tag == "PowerUp"){
+			collision.gameObject.GetComponent<Powerup>().getPwer (this.gameObject);
+			Destroy (collision.gameObject);
 		}
 	}
 	void die(){
@@ -63,12 +67,22 @@ public class PlayerStatus : MonoBehaviour {
 	}
 	
 	void changeOpacity(float val){
-		Renderer[] rends = gameObject.GetComponentsInChildren<Renderer>();
+		/*Renderer[] rends = gameObject.GetComponentsInChildren<Renderer>();
 		
 		foreach(Renderer rend in rends){
 			Color color = rend.material.color;
 			color.b = val;
 			renderer.material.SetColor("_Color",color);
+		}*/
+	}
+	
+	public void bleed(bool b){
+		
+		if(b){
+			blood.Play();
+		}
+		else{
+			blood.Stop();
 		}
 	}
 }
