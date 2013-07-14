@@ -111,13 +111,8 @@ public class Medusa : MonoBehaviour {
 	
 	IEnumerator hairAttack(){
 		yield return new WaitForSeconds(.5f);
-		heads = new List<SnakeHead>();
-		foreach(Transform child in transform){
-				Transform go = child.FindChild("SnakeHead");
-				if(go){
-					heads.Add(go.gameObject.GetComponent<SnakeHead>());
-				}
-		}
+		
+		getHeads ();
 		if(heads.Count>0){
 			int i = Random.Range(0,heads.Count);
 			if(heads[i])
@@ -134,5 +129,19 @@ public class Medusa : MonoBehaviour {
 	void endAction(){
 		finishedAction = true;
 		actionInProgress = false;
+	}
+	
+	void die(){
+		
+	}
+	
+	void getHeads(){
+		heads = new List<SnakeHead>();
+		foreach(Transform child in transform){
+				Transform go = child.FindChild("SnakeHead");
+				if(go){
+					heads.Add(go.gameObject.GetComponent<SnakeHead>());
+				}
+		}
 	}
 }
