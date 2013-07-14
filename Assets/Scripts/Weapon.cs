@@ -32,7 +32,10 @@ public class Weapon : MonoBehaviour {
 			float face = gameObject.transform.parent.GetComponent<AnimeState>().Facing;
 			//GameObject firedBullet = (GameObject) Instantiate(bullet,transform.position,bullet.transform.rotation);
 			GameObject firedBullet = (GameObject) Instantiate(bullet,transform.position,bullet.transform.rotation);
-			Physics.IgnoreCollision(transform.parent.collider,firedBullet.collider);
+			Collider[] colliders = transform.parent.GetComponents<Collider>();
+			foreach(Collider col in colliders){
+				Physics.IgnoreCollision(col,firedBullet.collider);
+			}
 			firedBullet.rigidbody.AddForce (new Vector3(bulletForce*face,0,0));
 			Destroy (firedBullet, bulletLife);
 			//firedBullet.rigidbody.AddForce (transform.forward*bulletForce);
