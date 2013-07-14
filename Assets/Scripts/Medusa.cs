@@ -8,7 +8,7 @@ public class Medusa : MonoBehaviour {
 	public enum attacks {snake,hair,ground, sweep};
 	
 	Waypoint[] waypoints;
-	List<HairSnake> hair;
+	List<SnakeHead> heads;
 	int wpIndex;
 	Waypoint targetwp;
 	Vector3 startPos;
@@ -29,7 +29,7 @@ public class Medusa : MonoBehaviour {
 		snake = (GameObject)Resources.Load ("dumbMob");
 		FindWayPoints();
 		
-		curAttack = "snake";
+		curAttack = "hair";
 		wpIndex = -1;
 		wpIndex = getNextWayPoint(wpIndex,curAttack);
 		setNextWayPoint();
@@ -105,14 +105,20 @@ public class Medusa : MonoBehaviour {
 	}
 	
 	IEnumerator hairAttack(){
-		hair = new List<HairSnake>();
+		yield return new WaitForSeconds(.5f);
+		heads = new List<SnakeHead>();
 		foreach(Transform child in transform){
-			hair.Add(child.GetComponent<HairSnake>());
+				Transform go = child.FindChild("SnakeHead");
+				if(go){
+					heads.Add(go.gameObject.GetComponent<SnakeHead>());
+				}
 		}
-		hair[Random.Range(0,hair.Count)].attackPlayer();
-		
-		yield return new WaitForSeconds(.5f);
-		yield return new WaitForSeconds(.5f);
+		if(heads.Count>0){
+			int i = Random.Range(0,heads.Count);
+			if(heads[i])
+				heads[i].attackPlayer();
+		}
+		print ("hairattack4");
 		endAction();
 	}
 	

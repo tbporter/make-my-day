@@ -41,7 +41,6 @@ public class EndGame : MonoBehaviour {
 
 		if (player.CompareTag ("Player") && CanWin && !hasWon) StartCoroutine(EndSequence());
 
-		Debug.Log (gameObject.tag);
 		if (player.CompareTag ("Player") && CanWin && !hasWon) {
 			StartCoroutine(EndSequence());
 			Vector3 herPos = player.transform.position;

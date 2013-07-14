@@ -9,7 +9,7 @@ public class HairSnake : MonoBehaviour {
 		randomize ();
 	}
 	void Update(){
-		Vector3 loc = collider.bounds.center +(transform.forward*2);
+		Vector3 loc = collider.bounds.center +(transform.up*-2);
 		transform.RotateAround(loc,spinDir*Vector3.forward,spinSpeed*Time.deltaTime);
 	}
     void FixedUpdate()
@@ -27,6 +27,5 @@ public class HairSnake : MonoBehaviour {
 	bool randBool(){
 		return (Random.value>.5f);
 	}
-	public void attackPlayer(){
-	}
+
 }

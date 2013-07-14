@@ -11,11 +11,11 @@ public class MobStatus : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		print ("derp");
 	}
 	
-	void OnCollisionEnter(Collision collision ) {
-		
+	public void OnCollisionEnter(Collision collision ) {
+		print ("collided");
 		if(collision.transform.tag == "Projectile"){
 			Destroy(collision.gameObject);
 			hp-=1;
