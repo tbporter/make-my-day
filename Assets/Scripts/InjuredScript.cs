@@ -10,7 +10,7 @@ public class InjuredScript : MonoBehaviour {
 	bool normalState = true;
 
 	void Start () {
-		c = renderer.material.color;
+		c = Color.white;
 	}
 	
 	void Update () {
