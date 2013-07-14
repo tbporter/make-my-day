@@ -11,6 +11,6 @@ public class startGame : MonoBehaviour {
 	}
 	
 	IEnumerator gameIntro() {
-		
+		yield return null;
 	}
 }
