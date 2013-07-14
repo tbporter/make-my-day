@@ -53,7 +53,7 @@ public class PlayerEntity : LivingEntity {
 				
 			}
 			else{
-				moveDirection.y = -3f; //magic number to balance high speed ledge falls and not bouncing on floor
+				moveDirection.y = -5f; //magic number to balance high speed ledge falls and not bouncing on floor
 			}
 			
         }

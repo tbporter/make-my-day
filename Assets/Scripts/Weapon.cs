@@ -29,10 +29,11 @@ public class Weapon : MonoBehaviour {
 	void FixedUpdate () {
 		if(isShooting && lastFired>fireRate){
 			lastFired = 0;
+			float face = gameObject.transform.parent.GetComponent<AnimeState>().Facing;
 			//GameObject firedBullet = (GameObject) Instantiate(bullet,transform.position,bullet.transform.rotation);
 			GameObject firedBullet = (GameObject) Instantiate(bullet,transform.position,bullet.transform.rotation);
 			Physics.IgnoreCollision(transform.parent.collider,firedBullet.collider);
-			firedBullet.rigidbody.AddForce (new Vector3(bulletForce,0,0));
+			firedBullet.rigidbody.AddForce (new Vector3(bulletForce*face,0,0));
 			Destroy (firedBullet, bulletLife);
 			//firedBullet.rigidbody.AddForce (transform.forward*bulletForce);
 		}
