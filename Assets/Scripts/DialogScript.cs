@@ -11,13 +11,13 @@ public class DialogScript : MonoBehaviour {
 	}
 	
 	public void initDialog (int msg) { // 0-3
-		StartCoroutine (showDialog());
+		StartCoroutine (showDialog(msg));
 		renderer.material.SetTextureOffset("_MainTex", new Vector2(0f, .75f-(.25f*msg) ) );	
 	}
 	
-	public IEnumerator showDialog() {
+	public IEnumerator showDialog(int msg) {
 		renderer.material.color = new Color (1,1,1,1);
 		yield return new WaitForSeconds(5.0f);
-		renderer.material.color = new Color (1,1,1,0);
+	    if (msg !=3) renderer.material.color = new Color (1,1,1,0); // hold the last frame.
 	}
 }
