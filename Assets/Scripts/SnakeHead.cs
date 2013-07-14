@@ -5,7 +5,7 @@ public class SnakeHead : MonoBehaviour {
 	public GameObject bullet;
 	// Use this for initialization
 	void Start () {
-	
+		bullet=(GameObject)Resources.Load("FireBall");
 	}
 	
 	// Update is called once per frame

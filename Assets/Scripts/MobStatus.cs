@@ -4,14 +4,25 @@ using System.Collections;
 public class MobStatus : MonoBehaviour {
 	public GameObject shard;
 	public int hp = 1;
+	private float indicatorTimer;
+	public float indicatorTime = .15f;
+	private InjuredScript injured;
 	// Use this for initialization
 	void Start () {
-	
+		injured = GetComponent<InjuredScript>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 //		print ("derp");
+		
+			indicatorTimer -= Time.deltaTime;
+		if(indicatorTimer<=0){
+			if(injured!=null){
+				injured.Damage = false;
+			}
+		}
+		
 	}
 	
 	public void OnCollisionEnter(Collision collision ) {
@@ -19,6 +30,10 @@ public class MobStatus : MonoBehaviour {
 		if(collision.transform.tag == "Projectile"){
 			Destroy(collision.gameObject);
 			hp-=1;
+			if(injured!=null){
+				injured.Damage = true;
+			}
+			indicatorTimer= indicatorTime;
 			if(hp<=0)
 				die(collision.contacts[0].point);
 		}
