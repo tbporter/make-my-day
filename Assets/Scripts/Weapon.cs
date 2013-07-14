@@ -13,6 +13,7 @@ public class Weapon : MonoBehaviour {
 	public float bulletLife = 4;
 	// Use this for initialization
 	void Start () {
+		
 	}
 	
 	// Update is called once per frame

@@ -5,7 +5,7 @@ using System.Linq;
 
 public class Medusa : MonoBehaviour {
 
-	public enum attacks {snake,hair,ground, sweep};
+	//public enum attacks {snake,hair,ground, sweep};
 	
 	Waypoint[] waypoints;
 	List<SnakeHead> heads;
@@ -13,6 +13,7 @@ public class Medusa : MonoBehaviour {
 	Waypoint targetwp;
 	Vector3 startPos;
 	
+	string[] attacks = new string[]{"hair","snake"};
 	
 	float speed = 7;
 	float startTime;
@@ -29,7 +30,7 @@ public class Medusa : MonoBehaviour {
 		snake = (GameObject)Resources.Load ("dumbMob");
 		FindWayPoints();
 		
-		curAttack = "hair";
+		curAttack = "snake";
 		wpIndex = -1;
 		wpIndex = getNextWayPoint(wpIndex,curAttack);
 		setNextWayPoint();
@@ -123,7 +124,7 @@ public class Medusa : MonoBehaviour {
 	
 	void setNextAttack(){
 		wpIndex = -1;
-		curAttack = "snake";
+		curAttack = attacks[Random.Range(0,2)];
 	}
 	
 	void endAction(){
