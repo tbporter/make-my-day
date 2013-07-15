@@ -17,7 +17,7 @@ public class Medusa : MonoBehaviour {
 	
 	string[] attacks = new string[]{"hair","snake"};
 	
-	float speed = 7;
+	float speed = 9;
 	float startTime;
 	float journeyLength;
 	
@@ -39,6 +39,8 @@ public class Medusa : MonoBehaviour {
 		
 	}
 	
+	float headsTimer = 0;
+	float headsTime = 1;
 	// Update is called once per frame
 	void Update () {
 		float distCovered = (Time.time - startTime) * speed;
@@ -52,6 +54,16 @@ public class Medusa : MonoBehaviour {
 				setNextWayPoint();
 				finishedAction = false;
 			}
+		}
+		
+		if(headsTimer<=0){
+			getHeads();
+			if(heads.Count==0)
+				die ();
+			headsTimer = headsTime;
+		}
+		else{
+			headsTimer -= Time.deltaTime;
 		}
 			
 	}
@@ -132,7 +144,8 @@ public class Medusa : MonoBehaviour {
 	}
 	
 	void die(){
-		
+		Destroy (gameObject);
+		GameObject.Find ("Fiance").GetComponent<EndGame>().CanWin=true;
 	}
 	
 	void getHeads(){

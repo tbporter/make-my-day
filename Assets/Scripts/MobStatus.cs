@@ -14,8 +14,6 @@ public class MobStatus : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		print ("derp");
-		
 			indicatorTimer -= Time.deltaTime;
 		if(indicatorTimer<=0){
 			if(injured!=null){
