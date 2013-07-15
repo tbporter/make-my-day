@@ -13,7 +13,8 @@ public class DieCollision : MonoBehaviour {
 	
 	}
 	
-	void OnCollisionEnter(Collision collision){
+	void OnTriggerEnter(Collider collision){
+		print ("death");
 		collision.transform.GetComponent<PlayerStatus>().die ();
 	}
 }

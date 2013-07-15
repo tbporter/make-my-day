@@ -46,6 +46,8 @@ public class EndGame : MonoBehaviour {
 			Vector3 herPos = player.transform.position;
 			herPos.z = -2f;
 			player.transform.position = herPos;
+			gameObject.AddComponent<MobStatus>();
+			gameObject.AddComponent<BoxCollider>();
 		}
 	}
 	
@@ -78,8 +80,12 @@ public class EndGame : MonoBehaviour {
 		Destroy (Heart);
 		theEnd.BFade = true;
 		
-		yield return null;
+		yield return new WaitForSeconds(3.0f);
+		Application.LoadLevel("Credits");
 	}
 	
-
+	void OnDestroy(){
+		if(hasWon)
+			Application.LoadLevel("Credits");
+	}
 }
