@@ -69,7 +69,7 @@ public class PlayerStatus : MonoBehaviour {
 			Destroy (collision.gameObject);
 		}
 	}
-	void die(){
+	public void die(){
 		Application.LoadLevel (Application.loadedLevelName);
 	}
 	
